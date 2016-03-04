@@ -1,0 +1,35 @@
+group "com.ascotrobot"
+version "0.1-SNAPSHOT"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin",           "kotlin-gradle-plugin",         "1.0.0"
+    }
+}
+
+subprojects {
+    apply plugin: "kotlin"
+    group "com.ascotrobot"
+    version '0.1-SNAPSHOT'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        compile         "org.jetbrains.kotlin",             "kotlin-stdlib",                "1.0.0"
+        testCompile     "junit",                            "junit",                        "4.12"
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+
+project(':kottage-netty') {
+    dependencies {
+        compile 'io.netty:netty-all:4.0.34.Final'
+    }
+}
+
