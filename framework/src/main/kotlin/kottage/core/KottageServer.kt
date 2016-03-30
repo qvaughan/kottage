@@ -75,7 +75,7 @@ class KottageRequestHandler(val router: Router) : SimpleChannelInboundHandler<Fu
             val route = this.router.match(method, path)
             val message: HttpResponse = if (route != null) {
                 val actionResponse = route.action(Request(mapOf()))
-                val httpResponseStatus = HttpResponseStatus.valueOf(actionResponse.statusCode)
+                val httpResponseStatus = HttpResponseStatus.valueOf(actionResponse.status)
                 val byteBuf = Unpooled.copiedBuffer(actionResponse.body, Charset.forName("UTF-8"))
                 DefaultFullHttpResponse(msg.protocolVersion, httpResponseStatus, byteBuf).apply {
                     headers().apply {

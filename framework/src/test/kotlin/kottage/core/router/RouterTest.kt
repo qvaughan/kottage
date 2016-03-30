@@ -2,6 +2,7 @@ package kottage.core.router
 
 import kottage.core.Request
 import kottage.core.Response
+import kottage.core.ResponseBuilder
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -12,7 +13,12 @@ import org.junit.Test
 
 class RouterTest {
 
-    val fooAction = {r: Request -> Response(200, body = "foo") }
+    val fooAction = {r: Request ->
+        ResponseBuilder(200)
+            .header("Content-Type" to "text/plain")
+            .body("foo")
+            .build()
+    }
     val barAction = {r: Request -> Response(200, body = "bar") }
     val bazAction = {r: Request -> Response(200, body = "baz") }
     var router: Router = Router()
