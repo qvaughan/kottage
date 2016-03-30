@@ -1,4 +1,4 @@
-group "com.ascotrobot"
+group "kottage"
 version "0.1-SNAPSHOT"
 
 buildscript {
@@ -18,7 +18,6 @@ repositories {
 dependencies {
     compile "io.netty:netty-all:4.0.34.Final"
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0"
-    compile "com.fasterxml.jackson.core:jackson-databind:2.7.3"
     testCompile "junit:junit:4.12"
     testCompile "org.assertj:assertj-core:3.3.0"
 }
