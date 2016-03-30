@@ -7,7 +7,7 @@ the [Play](https://playframework.com/) and [Spark] (http://sparkjava.com/).
 * Offer configurability, but "just work" out of the box.
 * Offer opinionated functionality as modules that can be overridden by the developer when possible.
 
-## Creating a Server that says hi
+## Creating a Server that says Hi
 ```
 KottageServer(Router()
   .get("/hello") {
@@ -15,3 +15,4 @@ KottageServer(Router()
   }
 ).start(InetSocketAddress(8888))
 ```
+Now browsing to `localhost:8888/hello` will say: `{"msg": "hi"}`
