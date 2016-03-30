@@ -15,16 +15,12 @@ object KottageMain {
      */
     @JvmStatic
     fun main(args: Array<String>) {
-        val router = Router()
-                .get("/hello") { Response(200, mutableMapOf("Content-Type" to "application/json; utf-8"),  "{\"msg\": \"hi\"}") }
-        val server = KottageServer(router)
-        val future = server.start(InetSocketAddress(8888))
-        Runtime.getRuntime().addShutdownHook(object : Thread() {
-            override fun run() {
-                server.destroy()
-            }
-        })
-        future.channel().closeFuture().syncUninterruptibly()
+        KottageServer(Router()
+                .get("/hello") {
+                    Response(200, mutableMapOf("Content-Type" to "application/json; utf-8"),  "{\"msg\": \"hi\"}")
+                }
+        ).start(InetSocketAddress(8888))
+
     }
 
 }

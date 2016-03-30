@@ -26,14 +26,20 @@ class KottageServer (val router: Router) {
     private val eventLoopGroup = NioEventLoopGroup()
     private var channel: Channel? = null
 
-    fun start(address: InetSocketAddress) : ChannelFuture {
+    fun start(address: InetSocketAddress) : Unit {
         val bootstrap = ServerBootstrap().group(eventLoopGroup)
                 .channel(NioServerSocketChannel::class.java)
                 .childHandler(KottageChannelInitializer(channelGroup, router))
         val future = bootstrap.bind(address)
         future.syncUninterruptibly()
         channel = future.channel()
-        return future
+        val server = this
+        Runtime.getRuntime().addShutdownHook(object : Thread() {
+            override fun run() {
+                server.destroy()
+            }
+        })
+        future.channel().closeFuture().syncUninterruptibly()
     }
 
     fun destroy() {
