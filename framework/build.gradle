@@ -6,30 +6,24 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin",           "kotlin-gradle-plugin",         "1.0.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0"
     }
 }
 
-subprojects {
-    apply plugin: "kotlin"
-    group "com.ascotrobot"
-    version '0.1-SNAPSHOT'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        compile         "org.jetbrains.kotlin",             "kotlin-stdlib",                "1.0.0"
-        testCompile     "junit",                            "junit",                        "4.12"
-    }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+apply plugin: "kotlin"
+repositories {
+    mavenCentral()
 }
 
+dependencies {
+    compile "io.netty:netty-all:4.0.34.Final"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.7.3"
+    testCompile "junit:junit:4.12"
+    testCompile "org.assertj:assertj-core:3.3.0"
+}
 
-project(':kottage-netty') {
-    dependencies {
-        compile 'io.netty:netty-all:4.0.34.Final'
-    }
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
 }
 
