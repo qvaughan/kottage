@@ -1,8 +1,17 @@
 ## Kottage - Quickly build reactive Kotlin microservices
-Kottage is a REST framework with emphasis on building reactive microservices in Kotlin. It is heavily influenced by 
-the [Play framework](https://playframework.com/).
+Kottage is an HTTP service framework with emphasis on building reactive microservices in Kotlin. It is heavily influenced by 
+the [Play](https://playframework.com/) and [Spark] (http://sparkjava.com/).
 
 ## Core Ideas
-* Building reactive applications in Kotlin should be simple.
+* Make building reactive services easy.
+* Offer configurability, but "just work" out of the box.
+* Offer opinionated functionality as modules that can be overridden by the developer when possible.
 
-
+## Creating a Server that says hi
+```
+KottageServer(Router()
+  .get("/hello") {
+    Response(200, body = "{\"msg\": \"hi\"}")
+  }
+).start(InetSocketAddress(8888))
+```
