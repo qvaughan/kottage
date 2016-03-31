@@ -19,4 +19,4 @@ Kottage(Router()
   }
 ).start(InetSocketAddress(8888))
 ```
-Now browsing to `localhost:8888/hello` will say: `{"msg": "hi"}`
+Now browsing to `localhost:8888/hello/123?foo=bar` will say: `{"id": "123", "foo": "bar"}`
