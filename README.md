@@ -8,10 +8,14 @@ the [Play](https://playframework.com/) and [Spark] (http://sparkjava.com/).
 * Offer opinionated functionality as modules that can be overridden by the developer when possible.
 
 ## Creating a Server that says Hi
-```
-KottageServer(Router()
-  .get("/hello") {
-    Response(200, body = "{\"msg\": \"hi\"}")
+```kotlin
+Kottage(Router()
+  .get("/hello/:id") { request ->
+    ResponseBuilder(200)
+      .header("Content-Type" to "application/json")
+      // return the id path param and a query string param named foo in the response body as JSON
+      .body("""{"id": "${request.params["id"]}", "foo": "${request.params["foo"]}}""")
+      .build()
   }
 ).start(InetSocketAddress(8888))
 ```
