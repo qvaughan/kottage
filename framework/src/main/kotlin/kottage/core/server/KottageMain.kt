@@ -1,7 +1,8 @@
 package kottage.core.server
 
-import kottage.core.KottageServer
-import kottage.core.Response
+import kottage.core.Kottage
+
+import kottage.core.ResponseBuilder
 import kottage.core.router.Router
 import java.net.InetSocketAddress
 
@@ -15,9 +16,12 @@ object KottageMain {
      */
     @JvmStatic
     fun main(args: Array<String>) {
-        KottageServer(Router()
-                .get("/hello") {
-                    Response(200, mutableMapOf("Content-Type" to "application/json; utf-8"),  "{\"msg\": \"hi\"}")
+        Kottage(Router()
+                .get("/hello/:id") { request ->
+                    ResponseBuilder(200)
+                            .header("Content-Type" to "application/json")
+                            .body("""{"id": "${request.params["id"]}", "foo": "${request.params["foo"]}}""")
+                            .build()
                 }
         ).start(InetSocketAddress(8888))
 

@@ -53,8 +53,9 @@ class Router {
         val pathPattern = splitPath.mapIndexed { i, section ->
             // If it is a path parameter, it will begin with a colon
             if (section.startsWith(":")) {
-                // Update the path param map with the name of the path param and it's index in the path
-                pathParamMap.put(i, section)
+                // Update the path param map with the name of the path param and it's index in the path, removing the
+                // : prefix
+                pathParamMap.put(i, section.substring(1))
                 // Return a regex for matching this segment of the path
                 "[^/]+"
             } else {
