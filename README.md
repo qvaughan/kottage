@@ -7,7 +7,7 @@ the [Play](https://playframework.com/) and [Spark] (http://sparkjava.com/).
 * Offer configurability, but "just work" out of the box.
 * Offer opinionated functionality as modules that can be overridden by the developer when possible.
 
-## Creating a Server that says Hi
+## Creating a Basic Service
 ```kotlin
 Kottage(Router()
   .get("/hello/:id") { request ->
