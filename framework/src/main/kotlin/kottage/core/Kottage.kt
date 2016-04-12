@@ -79,7 +79,12 @@ class KottageRequestHandler(val router: Router) : SimpleChannelInboundHandler<Fu
         val uri = UriBuilder(msg.uri)
         val method = HttpMethod.valueOf(msg.method.name())
         val route = this.router.match(method, uri.path)
-        val message: HttpResponse = handleRequest(route, uri, msg.protocolVersion)
+
+        // Convert the content to a byte array.
+        val bytebuf = msg.content()
+        val bodyBytes = ByteArray(bytebuf.capacity()).apply { bytebuf.readBytes(this) }
+
+        val message: HttpResponse = handleRequest(route, uri, msg.protocolVersion, bodyBytes)
 
         ctx.write(message)
         val future = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT)
@@ -87,10 +92,10 @@ class KottageRequestHandler(val router: Router) : SimpleChannelInboundHandler<Fu
     }
 
 
-    private fun handleRequest(route: Route?, uri: Uri, protocolVersion: HttpVersion): HttpResponse {
+    private fun handleRequest(route: Route?, uri: Uri, protocolVersion: HttpVersion, body: ByteArray): HttpResponse {
         return if (route != null) {
             val parameters = extractParameters(uri, route)
-            val request = Request(parameters)
+            val request = Request(parameters, body)
             val actionResponse = route.action(request)
             val httpResponseStatus = HttpResponseStatus.valueOf(actionResponse.status)
             val byteBuf = Unpooled.copiedBuffer(actionResponse.body, Charset.forName("UTF-8"))

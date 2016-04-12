@@ -33,7 +33,7 @@ class Router {
     }
 
     fun post(path: String, f: (Request) -> Response) : Router{
-        addRoute(HttpMethod.GET, path, f)
+        addRoute(HttpMethod.POST, path, f)
         return this
     }
 
