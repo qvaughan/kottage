@@ -11,6 +11,8 @@ buildscript {
 }
 
 apply plugin: "kotlin"
+apply plugin: "maven-publish"
+
 repositories {
     mavenCentral()
 }
@@ -35,6 +37,14 @@ test {
             if (!desc.parent) { // will match the outermost suite
                 println "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
             }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
         }
     }
 }

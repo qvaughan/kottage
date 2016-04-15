@@ -26,7 +26,7 @@ object KottageMain {
                 .post("/echo") { request ->
                     ResponseBuilder(200)
                             .header("Content-Type" to "application/json")
-                            .body(String(request.body))
+                            .body(request.body.data)
                             .build()
                 }
         ).start(InetSocketAddress(8888))
